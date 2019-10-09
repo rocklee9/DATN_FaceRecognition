@@ -69,16 +69,16 @@ namespace FaceRecognition
                         picTraining.Image = TrainedFace.ToBitmap();
 
                         //Write the number of triained faces in a file text for further load
-                       // File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
+                       File.WriteAllText(@"../../TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
 
                         //Write the labels of triained faces in a file text for further load
-                        //for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
-                        //{
-                        //    trainingImages.ToArray()[i - 1].Save(Application.StartupPath + "/TrainedFaces/face" + i + ".bmp");
-                        //    File.AppendAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
-                        //}
+                        for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
+                        {
+                            trainingImages.ToArray()[i - 1].Save(@"../../TrainedFaces/face" + i + ".bmp");
+                            File.AppendAllText(@"../../TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
+                        }
 
-                        //MessageBox.Show(txtNameTraining.Text + "´s face detected and added :)", "Training OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(txtNameTraining.Text + "´s face detected and added :)", "Training OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     }
                 }
