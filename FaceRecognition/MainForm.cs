@@ -19,18 +19,84 @@ namespace FaceRecognition
         VideoCapture grabber;
         CascadeClassifier face;
         //MCvFont font = new MCvFont(FONT.CV_FONT_HERSHEY_TRIPLEX, 0.5d, 0.5d);
-        Image<Gray, byte> result, TrainedFace = null;
+        Image<Gray, byte> result=null;
+        Image<Gray, byte> TrainedFace ;
         Image<Gray, byte> gray = null;
         List<Image<Gray, byte>> trainingImages = new List<Image<Gray, byte>>();
         List<string> labels = new List<string>();
         List<string> NamePersons = new List<string>();
         int ContTrain, NumLabels, t;
-
-
-
-
-
         string name, names = null;
+        Rectangle [] facesDetected =new Rectangle[10];
+
+        private void BtnAddFace_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Get the current frame form capture device
+                using (var imageFrame = grabber.QueryFrame().ToImage<Bgr, byte>())
+                {
+                    if (imageFrame != null)
+                    {
+                        //Convert it to Grayscale
+                        gray = imageFrame.Convert<Gray, byte>();
+                        //Face Detector
+                        facesDetected = face.DetectMultiScale(
+                      gray,
+                      1.2,
+                      10,
+                      Size.Empty);
+
+                        //Action for each element detected
+                        foreach (var f in facesDetected)
+                        {
+                            
+
+                            TrainedFace = currentFrame.Copy(f).Convert<Gray, byte>();
+                            //CvInvoke.CvtColor(currentFrame.Copy(facesDetected[0]), TrainedFace, typeof(Bgr), typeof(Gray));
+
+                            break;
+
+                        }
+
+                        //resize face detected image for force to compare the same size with the 
+                        //test image with cubic interpolation type method
+                        TrainedFace = result.Resize(150, 150, Emgu.CV.CvEnum.Inter.Cubic);
+                        trainingImages.Add(TrainedFace);
+                        labels.Add(txtNameTraining.Text);
+
+                        //Show face added in gray scale
+                        picTraining.Image = TrainedFace.ToBitmap();
+
+                        //Write the number of triained faces in a file text for further load
+                       // File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
+
+                        //Write the labels of triained faces in a file text for further load
+                        //for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
+                        //{
+                        //    trainingImages.ToArray()[i - 1].Save(Application.StartupPath + "/TrainedFaces/face" + i + ".bmp");
+                        //    File.AppendAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
+                        //}
+
+                        //MessageBox.Show(txtNameTraining.Text + "´s face detected and added :)", "Training OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                }
+                        
+
+                
+
+                
+
+                
+            }
+            catch(Exception e1)
+            {
+                MessageBox.Show(e1.Message);
+                //MessageBox.Show("Enable the face detection first", "Training Fail", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -40,7 +106,7 @@ namespace FaceRecognition
             try
             {
                 //Load of previus trainned faces and labels for each image
-                string Labelsinfo = File.ReadAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
+                string Labelsinfo = File.ReadAllText(@"../../TrainedFaces/TrainedLabels.txt");
                 string[] Labels = Labelsinfo.Split('%');
                 NumLabels = Convert.ToInt16(Labels[0]);
                 ContTrain = NumLabels;
@@ -49,7 +115,7 @@ namespace FaceRecognition
                 for (int tf = 1; tf < NumLabels + 1; tf++)
                 {
                     LoadFaces = "face" + tf + ".bmp";
-                    trainingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/TrainedFaces/" + LoadFaces));
+                    trainingImages.Add(new Image<Gray, byte>(@"../../TrainedFaces/" + LoadFaces));
                     labels.Add(Labels[tf]);
                 }
 
@@ -81,22 +147,23 @@ namespace FaceRecognition
             {
                 if (imageFrame != null)
                 {
+                    currentFrame = grabber.QueryFrame().ToImage<Bgr, byte>();
                     //Convert it to Grayscale
                     gray = imageFrame.Convert<Gray, byte>();
                     //Face Detector
-                    var facesDetected = face.DetectMultiScale(
+                    facesDetected = face.DetectMultiScale(
                   gray,
                   1.1,
                   10,
                   Size.Empty);
 
                     //Action for each element detected
-                    foreach (var f in facesDetected)
+                    foreach (Rectangle f in facesDetected)
                     {
                         //  t = t + 1;
-                        // result = currentFrame.Copy(f).Convert<Gray, byte>().Resize(100, 100, Inter.Cubic);
+                        result = currentFrame.Copy(f).Convert<Gray, byte>().Resize(100, 100, Inter.Cubic);
                         //draw the face detected in the 0th (gray) channel with blue color
-                        imageFrame.Draw(f, new Bgr(Color.Red), 3);
+                        imageFrame.Draw(f, new Bgr(Color.Red), 2);
 
 
                         //if (trainingImages.ToArray().Length != 0)

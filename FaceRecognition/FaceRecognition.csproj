@@ -88,6 +88,47 @@
   <ItemGroup>
     <Content Include="Data\haarcascade_frontalface_default.xml" />
     <Content Include="License-LGPL.txt" />
+    <Content Include="TrainedFaces\face1.bmp" />
+    <Content Include="TrainedFaces\face10.bmp" />
+    <Content Include="TrainedFaces\face11.bmp" />
+    <Content Include="TrainedFaces\face12.bmp" />
+    <Content Include="TrainedFaces\face13.bmp" />
+    <Content Include="TrainedFaces\face14.bmp" />
+    <Content Include="TrainedFaces\face15.bmp" />
+    <Content Include="TrainedFaces\face16.bmp" />
+    <Content Include="TrainedFaces\face17.bmp" />
+    <Content Include="TrainedFaces\face18.bmp" />
+    <Content Include="TrainedFaces\face19.bmp" />
+    <Content Include="TrainedFaces\face2.bmp" />
+    <Content Include="TrainedFaces\face20.bmp" />
+    <Content Include="TrainedFaces\face21.bmp" />
+    <Content Include="TrainedFaces\face22.bmp" />
+    <Content Include="TrainedFaces\face23.bmp" />
+    <Content Include="TrainedFaces\face24.bmp" />
+    <Content Include="TrainedFaces\face25.bmp" />
+    <Content Include="TrainedFaces\face26.bmp" />
+    <Content Include="TrainedFaces\face27.bmp" />
+    <Content Include="TrainedFaces\face28.bmp" />
+    <Content Include="TrainedFaces\face29.bmp" />
+    <Content Include="TrainedFaces\face3.bmp" />
+    <Content Include="TrainedFaces\face30.bmp" />
+    <Content Include="TrainedFaces\face31.bmp" />
+    <Content Include="TrainedFaces\face32.bmp" />
+    <Content Include="TrainedFaces\face33.bmp" />
+    <Content Include="TrainedFaces\face34.bmp" />
+    <Content Include="TrainedFaces\face35.bmp" />
+    <Content Include="TrainedFaces\face36.bmp" />
+    <Content Include="TrainedFaces\face37.bmp" />
+    <Content Include="TrainedFaces\face38.bmp" />
+    <Content Include="TrainedFaces\face39.bmp" />
+    <Content Include="TrainedFaces\face4.bmp" />
+    <Content Include="TrainedFaces\face40.bmp" />
+    <Content Include="TrainedFaces\face5.bmp" />
+    <Content Include="TrainedFaces\face6.bmp" />
+    <Content Include="TrainedFaces\face7.bmp" />
+    <Content Include="TrainedFaces\face8.bmp" />
+    <Content Include="TrainedFaces\face9.bmp" />
+    <Content Include="TrainedFaces\TrainedLabels.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\EMGU.CV.4.1.1.3497\build\EMGU.CV.targets" Condition="Exists('..\packages\EMGU.CV.4.1.1.3497\build\EMGU.CV.targets')" />
